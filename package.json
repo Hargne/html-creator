@@ -1,0 +1,31 @@
+{
+  "name": "html-creator",
+  "version": "0.0.1",
+  "description": "Generate HTML with node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js",
+    "minify": "babili src -d lib"
+  },
+  "keywords": [
+    "html",
+    "build",
+    "generate",
+    "create",
+    "html-creator",
+    "node",
+    "node.js"
+  ],
+  "author": "Johan Hargne",
+  "license": "MIT",
+  "devDependencies": {
+    "babili": "^0.1.4",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "jest": "^20.0.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
