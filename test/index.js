@@ -1,17 +1,57 @@
-const htmlCreator = require('../src/document');
+const path = require('path');
+const htmlCreator = require('../src');
 
-const page = new htmlCreator([
-	{ type: 'head' },
+const html = new htmlCreator([
+	{
+		type: 'head',
+		content: [
+			{
+				type: 'title',
+				content: 'Generated HTML',
+			},
+		],
+	},
 	{
 		type: 'body',
-		props: [{ type: 'style', text: 'padding: 1rem;' }],
-		content: [{
-			type: 'div',
-			content: [{
-				type: 'span',
-			}],
-		}],
+		attributes: {
+			style: 'padding: 1rem',
+		},
+		content: [
+			{
+				type: 'div',
+				content: [
+					{
+						type: 'span',
+						attributes: {
+							class: 'button',
+							style: `
+								padding: 5px;
+								background-color: #eee;
+							`,
+						},
+						content: 'A Button Span Deluxe',
+					},
+					{
+						type: 'a',
+						content: 'Click here',
+						attributes: {
+							href: '/path-to-infinity',
+							target: '_blank',
+						},
+					},
+				],
+			},
+			{
+				type: 'table',
+				content: [
+					{
+						type: 'td',
+						content: 'I am in a table!',
+					},
+				],
+			},
+		],
 	},
 ]);
 
-console.log(page.findElement({ type: 'span' }));
+html.renderHTMLToFile(path.join(process.cwd(), 'index.html'));

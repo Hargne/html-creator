@@ -7,6 +7,10 @@
     "test": "node test/index.js",
     "minify": "babili src -d lib"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hargne/html-creator.git"
+  },
   "keywords": [
     "html",
     "build",
@@ -18,6 +22,10 @@
   ],
   "author": "Johan Hargne",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hargne/html-creator/issues"
+  },
+  "homepage": "https://github.com/Hargne/html-creator#readme",
   "devDependencies": {
     "babili": "^0.1.4",
     "eslint": "^3.19.0",
