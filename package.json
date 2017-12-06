@@ -1,11 +1,13 @@
 {
   "name": "html-creator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate HTML with node.js",
-  "main": "index.js",
+  "main": "./lib/index",
   "scripts": {
-    "test": "node test/index.js",
-    "minify": "babili src -d lib"
+    "jest": "jest --no-cache --config=jest.config.json",
+    "minify": "babili src -d lib",
+    "test": "npm run minify && jest",
+    "build": "npm run test"
   },
   "repository": {
     "type": "git",

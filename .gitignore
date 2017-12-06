@@ -1,3 +1,6 @@
 
 node_modules
 lib
+coverage/
+index.html
+npm-debug.log

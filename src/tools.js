@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const _ = require('lodash');
 
 /**
  * Fetches config from package.json
@@ -40,8 +41,46 @@ const logMessage = (type, msg) => {
 	return { logColor, logMsg }; // Return for testing purposes
 };
 
+/**
+ * Search a stack for an element matching the given needle
+ * @param {Array} stack
+ * @param {String} type
+ * @param {String} id
+ * @param {String} className
+ */
+const searchForElement = ({ stack, type, id, className }) => {
+	const result = [];
+
+	if (stack && stack.constructor === Array) {
+		// Look for matches and push to the result
+		result.push(stack.filter(element => {
+			if (type) { return element.type === type; }
+			if (id) { return element.attributes && element.attributes.id === id; }
+			if (className) { return element.attributes && element.attributes.class === className; }
+			return null;
+		}));
+		// Loop through the content of the element and look for matches
+		stack.forEach(element => {
+			if (element.content && element.content.constructor === Array) {
+				const deepSearch = searchForElement({ stack: element.content, type, id, className });
+				if (deepSearch) { result.push(deepSearch); }
+			}
+		});
+	}
+	// Flatten result array or just return a single object
+	const flatResult = _.flattenDeep(result);
+	if (flatResult.length > 0) {
+		if (flatResult.length === 1) {
+			return flatResult[0];
+		}
+		return flatResult;
+	}
+	return null;
+};
+
 module.exports = {
 	logMessage,
 	writeFile,
 	config,
+	searchForElement,
 };

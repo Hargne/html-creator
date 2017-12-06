@@ -4,7 +4,7 @@
  */
 const applyAttributes = (attributes) => {
 	if (attributes && attributes.constructor === Object) {
-		return Object.keys(attributes).map(key => ` ${key}="${attributes[key]}"`).join('');
+		return Object.keys(attributes).map(key => ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${attributes[key]}"`).join('');
 	}
 	return '';
 };
@@ -33,5 +33,6 @@ const create = ({ type, attributes, content }) => (
 
 module.exports = {
 	create,
+	parseContent,
 	applyAttributes,
 };

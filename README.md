@@ -1,4 +1,4 @@
-# jest-html-reporter
+# html-creator
 **Generate HTML with Node**
 
 ## Installation
