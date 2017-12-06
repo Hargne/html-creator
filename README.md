@@ -65,7 +65,7 @@ This will result with the following:
 ```
 
 ## Content Structure
-------
+
 When initially creating the html-creator class you can pass an array of objects (elements) to the plugin that should be rendered as a HTML document.
 Each object or element has the following available properties:
 
@@ -100,7 +100,6 @@ The content applied within the element tag. This can either be a string or an ar
 ```
 
 ## Dynamically Add Content
-------
 It is possible to define or change the content of the document after the html-creator class has been created:
 
 ```Javascript
@@ -116,7 +115,7 @@ console.log(html.renderHTML());
 ```
 
 ## Methods
-------
+
 ### renderHTML()
 `Returns: STRING`
 
