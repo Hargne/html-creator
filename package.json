@@ -1,6 +1,6 @@
 {
   "name": "html-creator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate HTML with node.js",
   "main": "./lib/index",
   "scripts": {
@@ -36,6 +36,7 @@
     "jest": "^20.0.4"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "mkdirp": "0.5.1"
   }
 }
