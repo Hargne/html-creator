@@ -15,7 +15,7 @@ describe('Document', () => {
 		it('should successfully return a string containing HTML', () => {
 			const document = new Document(mockData.contentObject);
 			const html = document.getHTML();
-			expect(html).toEqual('<!DOCTYPE html><body style="padding: 1rem"><div class="first-div"><span class="button" style="padding: 5px;background-color: #eee;">A Button Span Deluxe</span></div><table><td id="first" class="button">I am in a table!</td><td>I am in a table too!</td></table></body></html>'); // eslint-disable-line
+			expect(html).toEqual('<!DOCTYPE html><html><body style="padding: 1rem"><div class="first-div"><span class="button" style="padding: 5px;background-color: #eee;">A Button Span Deluxe</span></div><table><td id="first" class="button">I am in a table!</td><td>I am in a table too!</td></table></body></html>'); // eslint-disable-line
 		});
 	});
 
@@ -183,6 +183,17 @@ describe('Document', () => {
 				type: 'title',
 				content: 'New title',
 			});
+		});
+	});
+
+	describe('withBoilerplate', () => {
+		it('should set the content to the boilerplate', () => {
+			const document = new Document();
+			document.withBoilerplate([
+				{ type: 'div', content: 'hello there' },
+			]);
+			const html = document.getHTML();
+			expect(html).toEqual(mockData.boilerPlateHtml);
 		});
 	});
 });

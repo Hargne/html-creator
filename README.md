@@ -124,7 +124,7 @@ var html = new htmlCreator();
 html.renderHTMLToFile(path.join(process.cwd(), 'index.html'));
 ```
 
-### document.findElementByType(string)
+### document.findElementByType(_string_)
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given type and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -161,7 +161,7 @@ console.log(html.document.findElementByType('div'));
 // [{ type: 'div', content: 'first div' }, { type: 'div', content: 'second div' }]
 ```
 
-### document.findElementByClassName(string)
+### document.findElementByClassName(_string_)
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given class name and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -169,7 +169,7 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
-### document.findElementById(string)
+### document.findElementById(_string_)
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given ID and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -177,7 +177,28 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
-### document.setTitle(string)
+### document.withBoilerplate(_array_ content)
+`Returns: ARRAY`
+
+Sets the content to a generic boilerplate for easier setup. If content is passed as a parameter, it will be placed under the BODY tag.
+
+**Boilerplate Structure:**
+```Javascript
+[
+	{
+		type: 'head',
+		content: [
+			{ type: 'meta', attributes: { charset: 'utf-8' } },
+			{ type: 'meta', attributes: { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' } },
+		],
+	},
+	{
+		type: 'body',
+	},
+]
+```
+
+### document.setTitle(_string_)
 `Returns: STRING`
 
 A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.

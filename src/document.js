@@ -37,7 +37,32 @@ class Document {
 	 * Returns the content in HTML as a string
 	 */
 	getHTML() {
-		return `<!DOCTYPE html>${this.parseContent()}</html>`;
+		return `<!DOCTYPE html><html>${this.parseContent()}</html>`;
+	}
+
+	/**
+	 * Finds and returns an element by type.
+	 * Returns null if not found.
+	 * @param {String} needle
+	 */
+	findElementByType(needle) {
+		return Tools.searchForElement({ stack: this.content, type: needle });
+	}
+	/**
+	 * Finds and returns an element by ID.
+	 * Returns null if not found.
+	 * @param {String} needle
+	 */
+	findElementById(needle) {
+		return Tools.searchForElement({ stack: this.content, id: needle });
+	}
+	/**
+	 * Finds and returns an element by class.
+	 * Returns null if not found.
+	 * @param {String} needle
+	 */
+	findElementByClassName(needle) {
+		return Tools.searchForElement({ stack: this.content, className: needle });
 	}
 
 	/**
@@ -79,28 +104,21 @@ class Document {
 	}
 
 	/**
-	 * Finds and returns an element by type.
-	 * Returns null if not found.
-	 * @param {String} needle
+	 * Helper function that sets a simple boilerplate content
+	 * @param {Array} content
 	 */
-	findElementByType(needle) {
-		return Tools.searchForElement({ stack: this.content, type: needle });
-	}
-	/**
-	 * Finds and returns an element by ID.
-	 * Returns null if not found.
-	 * @param {String} needle
-	 */
-	findElementById(needle) {
-		return Tools.searchForElement({ stack: this.content, id: needle });
-	}
-	/**
-	 * Finds and returns an element by class.
-	 * Returns null if not found.
-	 * @param {String} needle
-	 */
-	findElementByClassName(needle) {
-		return Tools.searchForElement({ stack: this.content, className: needle });
+	withBoilerplate(content) {
+		this.content = [
+			{
+				type: 'head',
+				content: [
+					{ type: 'meta', attributes: { charset: 'utf-8' } },
+					{ type: 'meta', attributes: { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' } },
+				],
+			},
+			{ type: 'body', content },
+		];
+		return this.content;
 	}
 }
 
