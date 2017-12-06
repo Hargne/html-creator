@@ -7,7 +7,7 @@
     "jest": "jest --no-cache --config=jest.config.json",
     "minify": "babili src -d lib",
     "test": "npm run minify && jest",
-    "publish": "npm run test && npm publish"
+    "build": "npm run test && npm publish"
   },
   "repository": {
     "type": "git",
