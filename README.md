@@ -48,7 +48,7 @@ console.log(html.renderHTML());
 This will result with the following:
 
 ```HTML
-<html>
+<!DOCTYPE html>
 	<head>
 		<title>Generated HTML</title>
 	</head>
@@ -111,7 +111,7 @@ html.document.findElementByType('body').content = 'Added content!';
 
 console.log(html.renderHTML());
 
-// <html><body>Added content!</body></html>
+// <!DOCTYPE html><body>Added content!</body></html>
 ```
 
 ## Methods
@@ -188,4 +188,7 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
+### document.setTitle(string)
+`Returns: STRING`
 
+A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.

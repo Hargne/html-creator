@@ -3,7 +3,9 @@ const Tools = require('./tools');
 
 class Document {
 	constructor(content) {
-		this.setContent(content);
+		if (content) {
+			this.setContent(content);
+		}
 	}
 
 	/**
@@ -11,7 +13,11 @@ class Document {
 	 * @param {Array} content
 	 */
 	setContent(content) {
+		if (!content || content.constructor !== Array) {
+			return Tools.logMessage('error', 'The content needs to be provided as an Array');
+		}
 		this.content = content;
+		return content;
 	}
 
 	/**
@@ -25,6 +31,51 @@ class Document {
 			});
 		}
 		return output;
+	}
+
+	/**
+	 * Returns the content in HTML as a string
+	 */
+	getHTML() {
+		return `<!DOCTYPE html>${this.parseContent()}</html>`;
+	}
+
+	/**
+	 * Helper function to set the title of the document
+	 * @param {String} newTitle
+	 */
+	setTitle(newTitle) {
+		// Begin by searching for an existing title tag
+		const titleTag = this.findElementByType('title');
+		if (titleTag) {
+			titleTag.content = newTitle;
+			return newTitle;
+		}
+		// Next search for an existing head tag
+		const headTag = this.findElementByType('head');
+		if (headTag) {
+			if (headTag.content && headTag.content.constructor === Array) {
+				headTag.content.push({
+					type: 'title',
+					content: newTitle,
+				});
+			} else {
+				headTag.content = [{
+					type: 'title',
+					content: newTitle,
+				}];
+			}
+			return newTitle;
+		}
+		// If we passed to this point, we simply add a new head tag and a title tag
+		this.content.push({
+			type: 'head',
+			content: [{
+				type: 'title',
+				content: newTitle,
+			}],
+		});
+		return newTitle;
 	}
 
 	/**
@@ -50,13 +101,6 @@ class Document {
 	 */
 	findElementByClassName(needle) {
 		return Tools.searchForElement({ stack: this.content, className: needle });
-	}
-
-	/**
-	 * Returns the content in HTML as a string
-	 */
-	getHTML() {
-		return `<!DOCTYPE html>${this.parseContent()}</html>`;
 	}
 }
 

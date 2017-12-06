@@ -4,6 +4,13 @@ const Document = require('../lib/Document');
 const mockData = require('./_mockdata');
 
 describe('Document', () => {
+	describe('class constructor', () => {
+		it('should be able to execute successfully', () => {
+			const document = new Document();
+			expect(document).toEqual({});
+		});
+	});
+
 	describe('getHTML', () => {
 		it('should successfully return a string containing HTML', () => {
 			const document = new Document(mockData.contentObject);
@@ -25,6 +32,12 @@ describe('Document', () => {
 			const document = new Document();
 			document.setContent(mockData.contentObject);
 			expect(document.content).toEqual(mockData.contentObject);
+		});
+		it('should throw an error if invalid content was provided', () => {
+			expect.assertions(1);
+			const document = new Document();
+			document.setContent({});
+			expect(document.content).toBeUndefined();
 		});
 	});
 
@@ -125,6 +138,51 @@ describe('Document', () => {
 		it('should return null if there were no matches', () => {
 			const document = new Document(mockData.contentObject);
 			expect(document.findElementByClassName('nothing')).toBeNull();
+		});
+	});
+
+	describe('setTitle', () => {
+		it('should be able to set a title on a document with an existing title tag', () => {
+			const document = new Document([
+				{
+					type: 'head',
+					content: [
+						{
+							type: 'title',
+							content: 'Title',
+						},
+					],
+				},
+			]);
+			document.setTitle('New title');
+			expect(document.findElementByType('title')).toEqual({
+				type: 'title',
+				content: 'New title',
+			});
+		});
+		it('should be able to set a title on a document with a HEAD tag but no title tag', () => {
+			const document = new Document([
+				{
+					type: 'head',
+				},
+			]);
+			document.setTitle('New title');
+			expect(document.findElementByType('title')).toEqual({
+				type: 'title',
+				content: 'New title',
+			});
+		});
+		it('should be able to set a title on a document with no HEAD tag', () => {
+			const document = new Document([
+				{
+					type: 'body',
+				},
+			]);
+			document.setTitle('New title');
+			expect(document.findElementByType('title')).toEqual({
+				type: 'title',
+				content: 'New title',
+			});
 		});
 	});
 });
