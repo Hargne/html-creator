@@ -1,5 +1,9 @@
 # html-creator
-**Generate HTML with Node**
+**Generate HTML with NodeJS**
+
+[![NPM](https://nodei.co/npm/html-creator.png?downloads=true&stars=true)](https://nodei.co/npm/html-creator/)
+
+This plugin was written to make HTML generation in node modules more dynamic and easier to set up. It was inspired by [xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js)
 
 ## Installation
 ```shell
@@ -64,27 +68,27 @@ This will result with the following:
 </html>
 ```
 
-## Content Structure
+## Element Structure
 
 When initially creating the html-creator class you can pass an array of objects (elements) to the plugin that should be rendered as a HTML document.
 Each object or element has the following available properties:
 
 ### type (string)
 The HTML tag type. 
-#### Example
-`'div', 'p', 'table'`
+
+**Example:** `'div', 'p', 'table'`
 
 ### attributes (object)
 An object containing the HTML Tag attributes that should be applied. The key is the attribute name and the value is its value. 
-#### Example
-`{ style: 'padding: 5px;' }` will become `style="padding: 5px`
+
+**Example:** `{ style: 'padding: 5px;' }` will become `style="padding: 5px`
 
 ### content (string|array)
 The content applied within the element tag. This can either be a string or an array of element objects.
-#### Example 1
-`{ content: 'A text' }`
 
-#### Example 2
+**Example:** `{ content: 'A text' }`
+
+**Another example:**
 ```Javascript
 {
 	type: 'div',
@@ -97,21 +101,6 @@ The content applied within the element tag. This can either be a string or an ar
 }
 
 // Result: <div><span>Inner span</span></div>
-```
-
-## Dynamically Add Content
-It is possible to define or change the content of the document after the html-creator class has been created:
-
-```Javascript
-var htmlCreator = require('html-creator');
-var html = new htmlCreator();
-
-html.setContent([{ type: 'body' }]);
-html.document.findElementByType('body').content = 'Added content!';
-
-console.log(html.renderHTML());
-
-// <!DOCTYPE html><body>Added content!</body></html>
 ```
 
 ## Methods
@@ -192,3 +181,18 @@ _For examples of responses see **document.findElementByType(string)**_
 `Returns: STRING`
 
 A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.
+
+## Dynamically Add Content
+It is possible to define or change the content of the document after the html-creator class has been created:
+
+```Javascript
+var htmlCreator = require('html-creator');
+var html = new htmlCreator();
+
+html.setContent([{ type: 'body' }]);
+html.document.findElementByType('body').content = 'Added content!';
+
+console.log(html.renderHTML());
+
+// <!DOCTYPE html><body>Added content!</body></html>
+```
