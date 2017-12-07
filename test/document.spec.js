@@ -7,7 +7,7 @@ describe('Document', () => {
 	describe('class constructor', () => {
 		it('should be able to execute successfully', () => {
 			const document = new Document();
-			expect(document).toEqual({});
+			expect(document.content).toEqual([]);
 		});
 	});
 
@@ -19,10 +19,10 @@ describe('Document', () => {
 		});
 	});
 
-	describe('parseContent', () => {
-		it('should successfully create and return the content', () => {
+	describe('getContentInHTML', () => {
+		it('should successfully create and return the content in HTML', () => {
 			const document = new Document(mockData.contentObject);
-			const content = document.parseContent();
+			const content = document.getContentInHTML();
 			expect(content).toEqual('<body style="padding: 1rem"><div class="first-div"><span class="button" style="padding: 5px;background-color: #eee;">A Button Span Deluxe</span></div><table><td id="first" class="button">I am in a table!</td><td>I am in a table too!</td></table></body>'); // eslint-disable-line
 		});
 	});
@@ -37,7 +37,7 @@ describe('Document', () => {
 			expect.assertions(1);
 			const document = new Document();
 			document.setContent({});
-			expect(document.content).toBeUndefined();
+			expect(document.content).toEqual([]);
 		});
 	});
 
@@ -194,6 +194,92 @@ describe('Document', () => {
 			]);
 			const html = document.getHTML();
 			expect(html).toEqual(mockData.boilerPlateHtml);
+		});
+	});
+
+	describe('addElement', () => {
+		it('should add element data to the content', () => {
+			const document = new Document().addElement({ type: 'div', content: 'hello there' });
+			expect(document.content).toEqual([{ type: 'div', content: 'hello there' }]);
+		});
+		it('should be chainable', () => {
+			const document = new Document()
+				.addElement({ type: 'div', content: 'hello there' })
+				.addElement({ type: 'div', content: 'hello there again' });
+			expect(document.content).toEqual([{ type: 'div', content: 'hello there' }, { type: 'div', content: 'hello there again' }]);
+		});
+	});
+
+	describe('addElementToTarget', () => {
+		it('should add element data to a specified element ID that has string content', () => {
+			const document = new Document([{ type: 'div', attributes: { id: 'anId' }, content: 'hello there' }]);
+			document.addElementToTarget({
+				type: 'span', content: 'in here',
+			}, { id: 'anId' });
+			expect(document.content).toEqual([{
+				type: 'div',
+				attributes: { id: 'anId' },
+				content: [
+					{ content: 'hello there' },
+					{ type: 'span', content: 'in here' },
+				] }]);
+		});
+
+		it('should add element data to a specified element ID that has no content', () => {
+			const document = new Document([{ type: 'div', attributes: { id: 'anId' } }]);
+			document.addElementToTarget({
+				type: 'span', content: 'in here',
+			}, { id: 'anId' });
+			expect(document.content).toEqual([{
+				type: 'div',
+				attributes: { id: 'anId' },
+				content: [
+					{ type: 'span', content: 'in here' },
+				] }]);
+		});
+
+		it('should add element data to a specified element ID that has content', () => {
+			const document = new Document([{ type: 'div', attributes: { id: 'anId' }, content: [{ content: 'hello there' }] }]);
+			document.addElementToTarget({
+				type: 'span', content: 'in here',
+			}, { id: 'anId' });
+			expect(document.content).toEqual([{
+				type: 'div',
+				attributes: { id: 'anId' },
+				content: [
+					{ content: 'hello there' },
+					{ type: 'span', content: 'in here' },
+				] }]);
+		});
+
+		it('should add element data to all elements of given Class', () => {
+			const document = new Document([
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there' }],
+				},
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there 2' }],
+				},
+			]);
+			document.addElementToTarget({
+				type: 'span', content: 'in here',
+			}, { class: 'aClass' });
+			expect(document.content).toEqual([
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there' }, { type: 'span', content: 'in here' }],
+				},
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there 2' }, { type: 'span', content: 'in here' }],
+				},
+			]);
 		});
 	});
 });

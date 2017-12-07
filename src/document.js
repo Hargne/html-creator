@@ -5,6 +5,8 @@ class Document {
 	constructor(content) {
 		if (content) {
 			this.setContent(content);
+		} else {
+			this.setContent([]);
 		}
 	}
 
@@ -21,9 +23,9 @@ class Document {
 	}
 
 	/**
-	 * Parses the content and returns the rendered elements
+	 * Parses the content and returns the elements in HTML
 	 */
-	parseContent() {
+	getContentInHTML() {
 		let output = '';
 		if (this.content && this.content.constructor === Array) {
 			this.content.forEach(element => {
@@ -37,7 +39,7 @@ class Document {
 	 * Returns the content in HTML as a string
 	 */
 	getHTML() {
-		return `<!DOCTYPE html><html>${this.parseContent()}</html>`;
+		return `<!DOCTYPE html><html>${this.getContentInHTML()}</html>`;
 	}
 
 	/**
@@ -118,6 +120,63 @@ class Document {
 			},
 			{ type: 'body', content },
 		];
+		return this;
+	}
+
+	/**
+	 * Adds element data to the content. This method is chainable.
+	 * @param {Object} elementData
+	 */
+	addElement(elementData) {
+		this.content.push(elementData);
+		return this;
+	}
+
+	/**
+	 * Adds element data to the specified target (id, class or type). This method is chainable.
+	 * @param {Object} elementData
+	 * @param {Object} targetData
+	 */
+	addElementToTarget(elementData, targetData) {
+		let targetElement;
+
+		// Look up the target element
+		if (targetData && targetData.id) {
+			targetElement = this.findElementById(targetData.id);
+		} else if (targetData && targetData.class) {
+			targetElement = this.findElementByClassName(targetData.class);
+		} else if (targetData && targetData.type) {
+			targetElement = this.findElementByType(targetData.type);
+		}
+
+		// Internal method for adding the element data to a given content
+		const addElementToTarget = ({ targetContent, data }) => {
+			let newContent = targetContent;
+			if (targetContent && targetContent.constructor === Array) {
+				newContent.push(data);
+			} else if (targetContent && targetContent.constructor === String) {
+				const oldContent = targetElement.content;
+				newContent = [];
+				newContent.push({ content: oldContent });
+				newContent.push(data);
+			} else {
+				newContent = [];
+				newContent.push(data);
+			}
+			return newContent;
+		};
+
+		// Add the element to the target element
+		if (targetElement && targetElement.constructor === Array) {
+			// If we have found several matching target elements, we need to parse and add the data to each of them
+			targetElement.map((el, i) => {
+				targetElement[i].content = addElementToTarget({ targetContent: el.content, data: elementData });
+				return true;
+			});
+		} else {
+			// If one one match was found, simply add the data to its content
+			targetElement.content = addElementToTarget({ targetContent: targetElement.content, data: elementData });
+		}
 		return this;
 	}
 }

@@ -38,7 +38,8 @@ var html = new htmlCreator([
 		],
 	},
 ]);
-console.log(html.renderHTML());
+
+html.renderHTML();
 ```
 
 This will result with the following:
@@ -119,6 +120,7 @@ Sets the content to a generic boilerplate for easier setup. If content is passed
 **Example:**
 ```Javascript
 var html = new htmlCreator().withBoilerplate([{ type: 'div', content: 'hello there' }]);
+
 console.log(html.renderHTML());
 
 // <!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /></head><body><div>hello there</div></body></html>
@@ -134,6 +136,7 @@ If there are several matches, an array of all the matches will be returned (Retu
 ```Javascript
 var htmlCreator = require('html-creator');
 var html = new htmlCreator([{ type: 'body' }]);
+
 console.log(html.document.findElementByType('body'));
 
 // { type: 'body' }
@@ -146,6 +149,7 @@ var html = new htmlCreator([
 	{ type: 'div', content: 'first div' },
 	{ type: 'div', content: 'second div' },
 ]);
+
 console.log(html.document.findElementByType('div'));
 
 // [{ type: 'div', content: 'first div' }, { type: 'div', content: 'second div' }]
@@ -171,6 +175,46 @@ _For examples of responses see **document.findElementByType(string)**_
 `Returns: STRING`
 
 A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.
+
+### document.addElement(_object_ ElementData)
+_Chainable._
+Adds an element directly to the bottom of the content.
+
+#### Example
+```Javascript
+var htmlCreator = require('html-creator');
+var html = new htmlCreator()
+	.addElement({ type: 'head' })
+	.addElement({ type: 'body' });
+
+console.log(html.renderHTML());
+
+// <!DOCTYPE html><head></head><body></body></html>
+```
+
+### document.addElementToTarget(_object_ ElementData, _object_ Target)
+_Chainable._
+Adds an element to the content of a specified target. If you specify a target class or type that exists in multiple places, the new element will be added to all of the elements of the specified type/class.
+
+#### Target Object Structure
+`{ [id|class|type]: STRING }`
+
+#### Example
+```Javascript
+var htmlCreator = require('html-creator');
+var html = new htmlCreator([
+	{
+		type: 'body',
+		content: [{ type: 'div', attributes: { id: 'anID' }, content: 'hello there' }],
+	},
+]);
+
+html.addElementToTarget({ type: 'span', content: 'Yay!' }, { id: 'anID' });
+
+console.log(html.renderHTML());
+
+// <!DOCTYPE html><body><div id="anId">Hello there<span>yay</span></div></body></html>
+````
 
 # Examples
 Please visit the [wiki](https://github.com/Hargne/html-creator/wiki) for examples of usage, tips & tricks and further reading.
