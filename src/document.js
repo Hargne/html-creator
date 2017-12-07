@@ -128,7 +128,7 @@ class Document {
 	 * @param {Object} elementData
 	 */
 	addElement(elementData) {
-		this.content.push(elementData);
+		this.content = Tools.pushOrConcat(this.content, elementData);
 		return this;
 	}
 
@@ -150,18 +150,18 @@ class Document {
 		}
 
 		// Internal method for adding the element data to a given content
-		const addElementToTarget = ({ targetContent, data }) => {
+		const addContent = ({ targetContent, data }) => {
 			let newContent = targetContent;
 			if (targetContent && targetContent.constructor === Array) {
-				newContent.push(data);
+				newContent = Tools.pushOrConcat(newContent, data);
 			} else if (targetContent && targetContent.constructor === String) {
 				const oldContent = targetElement.content;
 				newContent = [];
 				newContent.push({ content: oldContent });
-				newContent.push(data);
+				newContent = Tools.pushOrConcat(newContent, data);
 			} else {
 				newContent = [];
-				newContent.push(data);
+				newContent = Tools.pushOrConcat(newContent, data);
 			}
 			return newContent;
 		};
@@ -170,12 +170,12 @@ class Document {
 		if (targetElement && targetElement.constructor === Array) {
 			// If we have found several matching target elements, we need to parse and add the data to each of them
 			targetElement.map((el, i) => {
-				targetElement[i].content = addElementToTarget({ targetContent: el.content, data: elementData });
+				targetElement[i].content = addContent({ targetContent: el.content, data: elementData });
 				return true;
 			});
 		} else {
 			// If one one match was found, simply add the data to its content
-			targetElement.content = addElementToTarget({ targetContent: targetElement.content, data: elementData });
+			targetElement.content = addContent({ targetContent: targetElement.content, data: elementData });
 		}
 		return this;
 	}

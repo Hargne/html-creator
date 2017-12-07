@@ -67,32 +67,15 @@ This will result with the following:
 When initially creating the html-creator class you can pass an array of objects (elements) to the plugin that should be rendered as a HTML document.
 Each object or element has the following available properties:
 
-### type (string)
-The HTML tag type. 
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| type  		| `string` 				| `'div'` `'p'` `'table'` The HTML tag type. |
+| attributes  	| `object` 				| `{ style: 'padding: 5px;' }` An object containing the HTML Tag attributes that should be applied. The key is the attribute name and the value is its value. |
+| content  		| `string` `array` 		| The content applied within the element tag. This can either be a string or an array of element objects. |
 
-**Example:** `'div', 'p', 'table'`
+***
 
-### attributes (object)
-An object containing the HTML Tag attributes that should be applied. The key is the attribute name and the value is its value. 
-
-**Example:** `{ style: 'padding: 5px;' }` will become `style="padding: 5px`
-
-### content (string|array)
-The content applied within the element tag. This can either be a string or an array of element objects.
-
-**Example:** `{ content: 'A text' }`
-
-**Another example:**
-```Javascript
-{
-	type: 'div',
-	content: [{ type: 'span', content: 'Inner span' }],
-}
-
-// Result: <div><span>Inner span</span></div>
-```
-
-## Methods
+# Methods
 
 ### renderHTML()
 `Returns: STRING`
@@ -113,7 +96,10 @@ var html = new htmlCreator();
 html.renderHTMLToFile(path.join(process.cwd(), 'index.html'));
 ```
 
-### withBoilerplate(_array_ content)
+### withBoilerplate(content)
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| id  			| `array` 				| Array containing element objects that will be added to the body |
 
 Sets the content to a generic boilerplate for easier setup. If content is passed as a parameter, it will be placed under the BODY tag.
 
@@ -126,7 +112,11 @@ console.log(html.renderHTML());
 // <!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /></head><body><div>hello there</div></body></html>
 ```
 
-### document.findElementByType(_string_)
+### document.findElementByType(type)
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| type  		| `string` 			| HTML type to search |
+
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given type and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -155,7 +145,11 @@ console.log(html.document.findElementByType('div'));
 // [{ type: 'div', content: 'first div' }, { type: 'div', content: 'second div' }]
 ```
 
-### document.findElementByClassName(_string_)
+### document.findElementByClassName(class)
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| class  		| `string` 			| class name to search |
+
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given class name and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -163,7 +157,11 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
-### document.findElementById(_string_)
+### document.findElementById(id)
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| id  			| `string` 				| ID to search |
+
 `Returns: ARRAY | OBJECT | NULL`
 
 Searches the content for element objects of a given ID and returns the results. This is useful for manipulating data after defining the initial content structure.
@@ -171,12 +169,20 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
-### document.setTitle(_string_)
+### document.setTitle(title)
+| Param  		| Type                	| Description  |
+| ------ 		| ------------------- 	| ------------ |
+| title  		| `string` 				| The title of the document |
+
 `Returns: STRING`
 
 A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.
 
-### document.addElement(_object_ ElementData)
+### document.addElement(elementData)
+| Param  		| Type                			| Description  |
+| ------ 		| ------------------- 			| ------------ |
+| elementData  	| `object` `array` 			| A single element object or an array of elements objects |
+
 _Chainable._
 Adds an element directly to the bottom of the content.
 
@@ -192,12 +198,14 @@ console.log(html.renderHTML());
 // <!DOCTYPE html><head></head><body></body></html>
 ```
 
-### document.addElementToTarget(_object_ ElementData, _object_ Target)
+### document.addElementToTarget(elementData, target)
+| Param  		| Type                			| Description  |
+| ------ 		| ------------------- 			| ------------ |
+| elementData  	| `object` `array` 			| A single element object or an array of elements objects |
+| target 		| `object` 						| `{ id: 'unique' }` `{ class: 'button' }` `{ type: 'body' }`    |
+
 _Chainable._
 Adds an element to the content of a specified target. If you specify a target class or type that exists in multiple places, the new element will be added to all of the elements of the specified type/class.
-
-#### Target Object Structure
-`{ [id|class|type]: STRING }`
 
 #### Example
 ```Javascript

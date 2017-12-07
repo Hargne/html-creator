@@ -78,9 +78,18 @@ const searchForElement = ({ stack, type, id, className }) => {
 	return null;
 };
 
+const pushOrConcat = (targetArray, input) => {
+	if (input.constructor === Array) {
+		return targetArray.concat(input);
+	}
+	targetArray.push(input);
+	return targetArray;
+};
+
 module.exports = {
 	logMessage,
 	writeFile,
 	config,
 	searchForElement,
+	pushOrConcat,
 };

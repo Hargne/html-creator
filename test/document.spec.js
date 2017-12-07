@@ -202,6 +202,13 @@ describe('Document', () => {
 			const document = new Document().addElement({ type: 'div', content: 'hello there' });
 			expect(document.content).toEqual([{ type: 'div', content: 'hello there' }]);
 		});
+		it('should be able to add an array of elements', () => {
+			const document = new Document().addElement([
+				{ type: 'div', content: 'hello there' },
+				{ type: 'div', content: 'hello there again' },
+			]);
+			expect(document.content).toEqual([{ type: 'div', content: 'hello there' }, { type: 'div', content: 'hello there again' }]);
+		});
 		it('should be chainable', () => {
 			const document = new Document()
 				.addElement({ type: 'div', content: 'hello there' })
