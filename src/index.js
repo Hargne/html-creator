@@ -7,6 +7,15 @@ class HtmlCreator {
 		this.document = new Document(content);
 	}
 
+	/**
+	 * Helper function that sets a simple boilerplate content
+	 * @param {Array} content
+	 */
+	withBoilerplate(content) {
+		this.document.withBoilerplate(content);
+		return this;
+	}
+
 	renderHTML() {
 		return this.document.getHTML();
 	}

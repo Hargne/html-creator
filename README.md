@@ -17,9 +17,7 @@ var html = new htmlCreator([
 	{ type: 'head', content: [{ type: 'title', content: 'Generated HTML' }] },
 	{
 		type: 'body',
-		attributes: {
-			style: 'padding: 1rem',
-		},
+		attributes: { style: 'padding: 1rem' },
 		content: [
 			{
 				type: 'div',
@@ -27,18 +25,12 @@ var html = new htmlCreator([
 					{
 						type: 'span',
 						content: 'A Button Span Deluxe',
-						attributes: {
-							className: 'button',
-							style: 'padding: 5px; background-color: #eee;',
-						},
+						attributes: { className: 'button' },
 					},
 					{
 						type: 'a',
 						content: 'Click here',
-						attributes: {
-							href: '/path-to-infinity',
-							target: '_blank',
-						},
+						attributes: { href: '/path-to-infinity', target: '_blank' },
 					},
 				],
 			},
@@ -53,12 +45,13 @@ This will result with the following:
 
 ```HTML
 <!DOCTYPE html>
+<html>
 	<head>
 		<title>Generated HTML</title>
 	</head>
 	<body style="padding: 1rem">
 		<div>
-			<span class="button" style="padding: 5px; background-color: #eee;">A Button Span Deluxe</span>
+			<span class="button">A Button Span Deluxe</span>
 			<a href="/path-to-infinity" target="_blank">Click here</a>
 		</div>
 		<table>
@@ -92,12 +85,7 @@ The content applied within the element tag. This can either be a string or an ar
 ```Javascript
 {
 	type: 'div',
-	content: [
-		{
-			type: 'span',
-			content: 'Inner span',
-		},
-	],
+	content: [{ type: 'span', content: 'Inner span' }],
 }
 
 // Result: <div><span>Inner span</span></div>
@@ -124,6 +112,18 @@ var html = new htmlCreator();
 html.renderHTMLToFile(path.join(process.cwd(), 'index.html'));
 ```
 
+### withBoilerplate(_array_ content)
+
+Sets the content to a generic boilerplate for easier setup. If content is passed as a parameter, it will be placed under the BODY tag.
+
+**Example:**
+```Javascript
+var html = new htmlCreator().withBoilerplate([{ type: 'div', content: 'hello there' }]);
+console.log(html.renderHTML());
+
+// <!DOCTYPE html><html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" /></head><body><div>hello there</div></body></html>
+```
+
 ### document.findElementByType(_string_)
 `Returns: ARRAY | OBJECT | NULL`
 
@@ -133,11 +133,7 @@ If there are several matches, an array of all the matches will be returned (Retu
 #### Example 1 - Single Match
 ```Javascript
 var htmlCreator = require('html-creator');
-var html = new htmlCreator([
-	{
-		type: 'body',
-	},
-]);
+var html = new htmlCreator([{ type: 'body' }]);
 console.log(html.document.findElementByType('body'));
 
 // { type: 'body' }
@@ -147,14 +143,8 @@ console.log(html.document.findElementByType('body'));
 ```Javascript
 var htmlCreator = require('html-creator');
 var html = new htmlCreator([
-	{
-		type: 'div',
-		content: 'first div',
-	},
-	{
-		type: 'div',
-		content: 'second div',
-	},
+	{ type: 'div', content: 'first div' },
+	{ type: 'div', content: 'second div' },
 ]);
 console.log(html.document.findElementByType('div'));
 
@@ -177,43 +167,12 @@ If there are several matches, an array of all the matches will be returned (Retu
 
 _For examples of responses see **document.findElementByType(string)**_
 
-### document.withBoilerplate(_array_ content)
-`Returns: ARRAY`
-
-Sets the content to a generic boilerplate for easier setup. If content is passed as a parameter, it will be placed under the BODY tag.
-
-**Boilerplate Structure:**
-```Javascript
-[
-	{
-		type: 'head',
-		content: [
-			{ type: 'meta', attributes: { charset: 'utf-8' } },
-			{ type: 'meta', attributes: { name: 'viewport', content: 'width=device-width, initial-scale=1, shrink-to-fit=no' } },
-		],
-	},
-	{
-		type: 'body',
-	},
-]
-```
-
 ### document.setTitle(_string_)
 `Returns: STRING`
 
 A helper function to set the title of the document. It searches the content for an existing title tag and replaces it if it exists, otherwise it will be automatically added.
 
-## Dynamically Add Content
-It is possible to define or change the content of the document after the html-creator class has been created:
+# Examples
+Please visit the [wiki](https://github.com/Hargne/html-creator/wiki) for examples of usage, tips & tricks and further reading.
 
-```Javascript
-var htmlCreator = require('html-creator');
-var html = new htmlCreator();
 
-html.setContent([{ type: 'body' }]);
-html.document.findElementByType('body').content = 'Added content!';
-
-console.log(html.renderHTML());
-
-// <!DOCTYPE html><body>Added content!</body></html>
-```

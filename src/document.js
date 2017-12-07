@@ -118,7 +118,7 @@ class Document {
 			},
 			{ type: 'body', content },
 		];
-		return this.content;
+		return this;
 	}
 }
 
