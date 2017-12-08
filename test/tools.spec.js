@@ -1,6 +1,6 @@
 /* global describe it expect */
 
-const Tools = require('../lib/Tools');
+const Tools = require('../src/tools.js');
 
 describe('Tools', () => {
 	describe('logMessage', () => {

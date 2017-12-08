@@ -1,6 +1,6 @@
 /* global describe it expect */
 
-const Document = require('../lib/Document');
+const Document = require('../src/document.js');
 const mockData = require('./_mockdata');
 
 describe('Document', () => {

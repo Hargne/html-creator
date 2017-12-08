@@ -21,8 +21,7 @@ class HtmlCreator {
 	}
 
 	renderHTMLToFile(destination) {
-		return this.renderHTML()
-			.then(Tools.writeFile.bind(null, destination))
+		return Tools.writeFile(destination, this.renderHTML())
 			.then(() => Tools.logMessage('success', `HTML generated (${destination})`))
 			.catch(error => Tools.logMessage('error', error));
 	}

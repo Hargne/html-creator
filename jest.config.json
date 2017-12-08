@@ -1,8 +1,8 @@
 {
-	"roots": ["<rootDir>"],
 	"collectCoverage": true,
 	"collectCoverageFrom" : [
 		"**/*.{js,jsx}",
+		"!**/lib/*.{js,jsx}",
 		"!**/test/*.{js,jsx}",
 		"!**/node_modules/**",
 		"!**/coverage/**",

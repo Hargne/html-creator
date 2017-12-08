@@ -1,12 +1,13 @@
 {
   "name": "html-creator",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Generate HTML with node.js",
   "main": "./lib/index",
   "scripts": {
     "jest": "jest --no-cache --config=jest.config.json",
     "minify": "babili src -d lib",
-    "test": "npm run minify && jest",
+    "eslint": "eslint src/**",
+    "test": "npm run eslint && npm run minify && jest",
     "build": "npm run test && npm publish"
   },
   "repository": {
