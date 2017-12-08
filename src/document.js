@@ -179,6 +179,33 @@ class Document {
 		}
 		return this;
 	}
+
+	/**
+	 * Adds element data to given class name
+	 * @param {String} className
+	 * @param {Object} elementData
+	 */
+	addElementToClass(className, elementData) {
+		return this.addElementToTarget(elementData, { class: className });
+	}
+
+	/**
+	 * Adds element data to given ID
+	 * @param {String} className
+	 * @param {Object} elementData
+	 */
+	addElementToId(id, elementData) {
+		return this.addElementToTarget(elementData, { id });
+	}
+
+	/**
+	 * Adds element data to given type
+	 * @param {String} className
+	 * @param {Object} elementData
+	 */
+	addElementToType(type, elementData) {
+		return this.addElementToTarget(elementData, { type });
+	}
 }
 
 module.exports = Document;

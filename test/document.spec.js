@@ -289,4 +289,72 @@ describe('Document', () => {
 			]);
 		});
 	});
+
+	describe('addElementToClass', () => {
+		it('should add element data to all elements of given Class', () => {
+			const document = new Document([
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there' }],
+				},
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there 2' }],
+				},
+			]);
+			document.addElementToClass('aClass', {
+				type: 'span', content: 'in here',
+			});
+			expect(document.content).toEqual([
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there' }, { type: 'span', content: 'in here' }],
+				},
+				{
+					type: 'div',
+					attributes: { class: 'aClass' },
+					content: [{ content: 'hello there 2' }, { type: 'span', content: 'in here' }],
+				},
+			]);
+		});
+	});
+
+	describe('addElementToId', () => {
+		it('should add element data to a specified element ID', () => {
+			const document = new Document([{ type: 'div', attributes: { id: 'anId' }, content: 'hello there' }]);
+			document.addElementToId('anId', {
+				type: 'span', content: 'in here',
+			});
+			expect(document.content).toEqual([{
+				type: 'div',
+				attributes: { id: 'anId' },
+				content: [
+					{ content: 'hello there' },
+					{ type: 'span', content: 'in here' },
+				] }]);
+		});
+	});
+
+	describe('addElementToType', () => {
+		it('should add element data to all elements of given HTML type', () => {
+			const document = new Document([
+				{ type: 'div', content: [{ content: 'hello there' }] },
+				{ type: 'div', content: [{ content: 'hello there 2' }] },
+			]);
+			document.addElementToType('div', { type: 'span', content: 'in here' });
+			expect(document.content).toEqual([
+				{
+					type: 'div',
+					content: [{ content: 'hello there' }, { type: 'span', content: 'in here' }],
+				},
+				{
+					type: 'div',
+					content: [{ content: 'hello there 2' }, { type: 'span', content: 'in here' }],
+				},
+			]);
+		});
+	});
 });
