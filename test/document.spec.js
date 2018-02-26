@@ -1,7 +1,7 @@
 /* global describe it expect */
 
 const Document = require('../src/document.js');
-const mockData = require('./_mockdata');
+const mockData = require('./_mockData');
 
 describe('Document', () => {
 	describe('class constructor', () => {

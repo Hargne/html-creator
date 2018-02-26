@@ -1,7 +1,7 @@
 /* global describe it expect */
 
 const htmlCreator = require('../src/index');
-const mockData = require('./_mockdata');
+const mockData = require('./_mockData');
 
 describe('Index', () => {
 	describe('withBoilerplate', () => {
