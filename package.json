@@ -1,15 +1,21 @@
 {
   "name": "html-creator",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Generate HTML with node.js",
-  "main": "./lib/index",
+  "main": "dist/main",
+  "unpkg": "dist/main.min.js",
   "scripts": {
     "jest": "jest --no-cache --config=jest.config.json",
-    "minify": "babili src -d lib",
     "eslint": "eslint src/**",
     "test": "npm run eslint && npm run jest",
-    "build": "npm run test && npm run minify && npm publish"
+    "bundle": "rollup -c rollup.config.js",
+    "bundle:minified": "rollup -c rollup.config.js --environment BUILD:minified",
+    "bundle:all": "npm run bundle && npm run bundle:minified",
+    "build": "npm run test && npm run bundle:all"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hargne/html-creator.git"
@@ -30,20 +36,23 @@
   },
   "homepage": "https://github.com/Hargne/html-creator#readme",
   "devDependencies": {
-    "babili": "^0.1.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.2.0",
     "jest": "^20.0.4",
-    "jest-html-reporter": "0.5.5"
+    "jest-html-reporter": "^1.1.0",
+    "rollup": "^0.55.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-uglify": "^3.0.0"
   },
   "dependencies": {
     "lodash": "^4.17.4",
     "mkdirp": "0.5.1"
   },
   "jest-html-reporter": {
-		"pageTitle": "HTML-Creator",
-		"outputPath": "test-report/index.html",
-		"includeFailureMsg": true
-	}
+    "pageTitle": "HTML-Creator",
+    "outputPath": "test-report/index.html",
+    "includeFailureMsg": true
+  }
 }

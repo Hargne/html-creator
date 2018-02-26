@@ -1,7 +1,7 @@
 {
 	"collectCoverage": true,
 	"collectCoverageFrom" : [
-		"**/*.{js,jsx}",
+		"src/**/*.{js,jsx}",
 		"!**/lib/*.{js,jsx}",
 		"!**/test/*.{js,jsx}",
 		"!**/node_modules/**",
