@@ -22,7 +22,7 @@ describe('Index', () => {
 			expect.assertions(1);
 			const html = new htmlCreator().withBoilerplate([{ type: 'div', content: 'hello there' }]);
 			return html.renderHTMLToFile().then(response => {
-				expect(response.logMsg).toEqual('HTML-Creator >> TypeError: Path must be a string. Received undefined');
+				expect(response.logMsg).toEqual('HTML-Creator >> A file path is required');
 			});
 		});
 	});

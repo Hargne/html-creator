@@ -1,6 +1,6 @@
 {
   "name": "html-creator",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Generate HTML with node.js",
   "main": "dist/main",
   "unpkg": "dist/main.min.js",
@@ -38,16 +38,16 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.9.0",
     "jest": "^20.0.4",
-    "jest-html-reporter": "^1.1.0",
-    "rollup": "^0.55.3",
+    "jest-html-reporter": "^1.2.1",
+    "rollup": "^0.55.5",
     "rollup-plugin-commonjs": "^8.3.0",
-    "rollup-plugin-node-resolve": "^3.0.2",
+    "rollup-plugin-node-resolve": "^3.0.3",
     "rollup-plugin-uglify": "^3.0.0"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "mkdirp": "0.5.1"
   },
   "jest-html-reporter": {

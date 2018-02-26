@@ -19,7 +19,10 @@ try {
  * @param  {Any} 	content
  */
 const writeFile = (filePath, content) => new Promise((resolve, reject) => {
-	mkdirp(path.dirname(filePath), mkdirpErr => {
+	if (!filePath) {
+		return reject('A file path is required');
+	}
+	return mkdirp(path.dirname(filePath), mkdirpErr => {
 		if (!mkdirpErr) {
 			return resolve(fs.writeFile(filePath, content, fsErr => reject(`Something went wrong when writing to the file: ${fsErr}`)));
 		}
