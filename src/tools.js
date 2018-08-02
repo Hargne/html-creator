@@ -4,16 +4,6 @@ const mkdirp = require('mkdirp');
 const _ = require('lodash');
 
 /**
- * Fetches config from package.json
- */
-const packageJson = require(path.join(process.cwd(), 'package.json')); // eslint-disable-line import/no-dynamic-require
-const config = {};
-try {
-	const cfg = (packageJson || {})['html-creator'];
-	if (cfg) { Object.assign(config, cfg); }
-} catch (e) { /** do nothing */ }
-
-/**
  * Creates a file at the given destination
  * @param  {String} filePath
  * @param  {Any} 	content
@@ -92,7 +82,6 @@ const pushOrConcat = (targetArray, input) => {
 module.exports = {
 	logMessage,
 	writeFile,
-	config,
 	searchForElement,
 	pushOrConcat,
 };

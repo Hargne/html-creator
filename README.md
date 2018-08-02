@@ -20,9 +20,13 @@ npm install html-creator
 
 # Usage
 ```Javascript
-var htmlCreator = require('html-creator');
-var html = new htmlCreator([
-	{ type: 'head', content: [{ type: 'title', content: 'Generated HTML' }] },
+const htmlCreator = require('html-creator');
+
+const html = new htmlCreator([
+	{
+		type: 'head',
+		content: [{ type: 'title', content: 'Generated HTML' }]
+	},
 	{
 		type: 'body',
 		attributes: { style: 'padding: 1rem' },
