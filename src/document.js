@@ -195,7 +195,7 @@ class Document {
 	 * @param {Object} elementData
 	 */
 	addElementToId(id, elementData) {
-		return this.addElementToTarget(elementData, { id });
+		return this.addElementToTarget(elementData, { id: id });
 	}
 
 	/**
