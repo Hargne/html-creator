@@ -16,7 +16,13 @@ class HtmlCreator {
 		return this;
 	}
 
-	renderHTML() {
+	renderHTML(config) {
+		if (config) {
+			const { excludeHTMLtag } = config;
+			if (excludeHTMLtag) {
+				return this.document.getContentInHTML();
+			}
+		}
 		return this.document.getHTML();
 	}
 
