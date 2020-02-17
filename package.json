@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/Hargne/html-creator#readme",
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.9.0",
     "jest": "^20.0.4",
