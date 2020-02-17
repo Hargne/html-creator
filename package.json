@@ -1,6 +1,6 @@
 {
   "name": "html-creator",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Generate HTML with node.js",
   "main": "dist/main",
   "unpkg": "dist/main.min.js",

@@ -14,6 +14,11 @@
 <br>
 
 # Installation
+#### With Yarn
+```shell
+yarn add html-creator
+```
+#### With NPM
 ```shell
 npm install html-creator
 ```

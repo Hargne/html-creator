@@ -11,6 +11,17 @@ describe('Index', () => {
 		});
 	});
 
+	describe('renderHTML', () => {
+		it('should return the content with a surrounding HTML tag', () => {
+			const html = new htmlCreator([{ type: 'div', content: 'hello there' }]);
+			expect(html.renderHTML()).toEqual('<!DOCTYPE html><html><div>hello there</div></html>');
+		});
+		it('should only return the content if excludeHTMLtag is set', () => {
+			const html = new htmlCreator([{ type: 'div', content: 'hello there' }]);
+			expect(html.renderHTML({ excludeHTMLtag: true })).toEqual('<div>hello there</div>');
+		});
+	});
+
 	describe('renderHTMLToFile', () => {
 		it('should be able to render HTMl to a file', () => {
 			const html = new htmlCreator().withBoilerplate([{ type: 'div', content: 'hello there' }]);
