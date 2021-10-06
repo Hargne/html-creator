@@ -14,16 +14,13 @@
 <br>
 
 # Installation
-#### With Yarn
+
 ```shell
 yarn add html-creator
 ```
-#### With NPM
-```shell
-npm install html-creator
-```
 
 # Usage
+
 ```Javascript
 const htmlCreator = require('html-creator');
 
@@ -76,10 +73,10 @@ This will result with the following:
 ```
 
 # 📖 Documentation
+
 Visit the **[wiki](https://github.com/Hargne/html-creator/wiki)** for more examples of usage, method reference and further reading.
 
 # Contribute
+
 Do you believe that something is missing from this plugin or perhaps is not working as intended? Awesome-pants! Help is always appreciated.
 Just be sure to read through the [Contributing Handbook](Contributing-Handbook) (and remember to have a jolly good time).
-
-
