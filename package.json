@@ -2,8 +2,8 @@
   "name": "html-creator",
   "version": "0.6.0",
   "description": "Generate HTML with node.js",
-  "main": "dist/main",
-  "unpkg": "dist/main.min.js",
+  "main": "dist/index.js",
+  "unpkg": "dist/index.js",
   "scripts": {
     "jest": "jest --no-cache --config=jest.config.json",
     "jest:watch": "jest --watch --no-cache --config=jest.config.json",
