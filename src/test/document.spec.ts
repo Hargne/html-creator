@@ -12,8 +12,8 @@ describe("Document", () => {
   describe("getHTML", () => {
     it("should successfully return a string containing HTML", () => {
       const document = new Document(mockData.contentObject);
-      const html = document.getHTML();
-      expect(html.replace(/(\r\n|\n|\r|\t|  +)/gm, "")).toEqual(
+      const html = document.getHTML({ disablePrettier: true });
+      expect(html).toEqual(
         '<!DOCTYPE html><html><body style="padding: 1rem"><div class="first-div"><span class="button" style="padding: 5px;background-color: #eee;">A Button Span Deluxe</span></div><table><td id="first" class="button">I am in a table!</td><td>I am in a table too!</td></table></body></html>'
       );
     });
@@ -23,7 +23,7 @@ describe("Document", () => {
     it("should successfully create and return the content in HTML", () => {
       const document = new Document(mockData.contentObject);
       const content = document.renderContent();
-      expect(content.replace(/(\r\n|\n|\r|\t|  +)/gm, "")).toEqual(
+      expect(content).toEqual(
         '<body style="padding: 1rem"><div class="first-div"><span class="button" style="padding: 5px;background-color: #eee;">A Button Span Deluxe</span></div><table><td id="first" class="button">I am in a table!</td><td>I am in a table too!</td></table></body>'
       );
     });
@@ -178,8 +178,8 @@ describe("Document", () => {
     it("should set the content to the boilerplate", () => {
       const document = new Document([{ type: "div", content: "hello there" }]);
       document.withBoilerplate();
-      const html = document.getHTML();
-      expect(html.replace(/(\r\n|\n|\r|\t|  +)/gm, "")).toEqual(
+      const html = document.getHTML({ disablePrettier: true });
+      expect(html).toEqual(
         mockData.boilerPlateHtml.replace(/(\r\n|\n|\r|\t|  +)/gm, "")
       );
     });

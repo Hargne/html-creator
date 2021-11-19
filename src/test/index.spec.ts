@@ -7,7 +7,7 @@ describe("Index", () => {
       const html = new htmlCreator([
         { type: "div", content: "hello there" },
       ]).withBoilerplate();
-      expect(html.renderHTML().replace(/(\r\n|\n|\r|\t|  +)/gm, "")).toEqual(
+      expect(html.renderHTML({ disablePrettier: true })).toEqual(
         mockData.boilerPlateHtml.replace(/(\r\n|\n|\r|\t|  +)/gm, "")
       );
     });
