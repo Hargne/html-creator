@@ -30,7 +30,7 @@ class HtmlCreator {
         return this.document.renderContent();
       }
     }
-    return this.document.getHTML(config?.htmlTagAttributes);
+    return this.document.getHTML(config);
   }
 }
 

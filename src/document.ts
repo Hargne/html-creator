@@ -1,6 +1,6 @@
 import Prettier from "prettier";
 import { generateElement } from "./element";
-import { HTMLCreatorElement } from "./index.d";
+import { HTMLCreatorConfig, HTMLCreatorElement } from "./index.d";
 import { pushOrConcat, searchForElement } from "./utils";
 
 class HTMLCreatorDocument {
@@ -22,13 +22,15 @@ class HTMLCreatorDocument {
   }
 
   // Returns the content in HTML as a string
-  getHTML(htmlAttributes?: HTMLCreatorElement["attributes"]) {
+  getHTML(options?: HTMLCreatorConfig) {
     const html = `<!DOCTYPE html>${generateElement({
       type: "html",
       content: this.renderContent(),
-      attributes: htmlAttributes,
+      attributes: options?.htmlTagAttributes,
     })}`;
-    return Prettier.format(html, { parser: "html" });
+    return options?.disablePrettier
+      ? html.replace(/(\r\n|\n|\r)/gm, "")
+      : Prettier.format(html, { parser: "html" });
   }
 
   /**
