@@ -105,7 +105,7 @@ class HTMLCreatorDocument {
     }
 
     if (targetElementList.length > 0) {
-      targetElementList.map((targetElement) => {
+      targetElementList.forEach((targetElement) => {
         if (!targetElement.content) {
           targetElement.content = [element];
           return;

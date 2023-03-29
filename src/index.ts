@@ -16,11 +16,11 @@ class HtmlCreator {
 
   renderHTMLToFile(destination: string, config?: HTMLCreatorConfig) {
     if (!destination) {
-      return Promise.reject(logMessage("error", "A file path is required"));
+      return Promise.reject(logMessage("A file path is required", "error"));
     }
     return writeFile(destination, this.renderHTML(config))
-      .then(() => logMessage("success", `HTML generated (${destination})`))
-      .catch((error) => logMessage("error", error));
+      .then(() => logMessage(`HTML generated (${destination})`, "success"))
+      .catch((error) => logMessage(error, "error"));
   }
 
   renderHTML(config?: HTMLCreatorConfig) {

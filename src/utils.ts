@@ -4,8 +4,8 @@ import mkdirp from "mkdirp";
 import { HTMLCreatorElement } from "./index.d";
 
 export const logMessage = (
-  type: "default" | "success" | "error" = "default",
-  message: string
+  message: string,
+  type: "default" | "success" | "error" = "default"
 ) => {
   const logTypes = {
     default: "\x1b[37m%s\x1b[0m",
@@ -23,7 +23,7 @@ export const logMessage = (
 
 export const writeFile = async (filePath: string, content: string) => {
   await mkdirp(path.dirname(filePath));
-  await fs.writeFileSync(filePath, content);
+  fs.writeFileSync(filePath, content);
 };
 
 export const searchForElement = ({
