@@ -2,7 +2,7 @@ import babel from "@rollup/plugin-babel";
 import resolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 
-const externalLibraries = ["fs", "path", "lodash", "mkdirp", "prettier"];
+const externalLibraries = ["fs", "path", "mkdirp", "prettier"];
 const extensions = [".ts", ".js"];
 
 const config = {
