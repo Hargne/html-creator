@@ -11,43 +11,54 @@
 ## Installation
 
 ```shell
-yarn add html-creator
+$ npm i html-creator
 ```
 
 ## Usage
 
 ```Javascript
-const htmlCreator = require('html-creator');
+const htmlCreator = require("html-creator");
 
 const html = new htmlCreator([
   {
-    type: 'head',
-    content: [{ type: 'title', content: 'Generated HTML' }]
-  },
-  {
-    type: 'body',
-    attributes: { style: 'padding: 1rem' },
+    type: "head",
     content: [
       {
-        type: 'div',
+        type: "title",
+        content: "Generated HTML",
+      },
+      {
+        type: "style",
+        content: `
+          #cool-text {
+            color: red;
+          }
+        `,
+      },
+    ],
+  },
+  {
+    type: "body",
+    content: [
+      {
+        type: "div",
         content: [
           {
-            type: 'span',
-            content: 'A Button Span Deluxe',
-            attributes: { className: 'button' },
+            type: "div",
+            content: "This is a cool text 😎",
+            attributes: { id: "cool-text" },
           },
           {
-            type: 'a',
-            content: 'Click here',
-            attributes: { href: '/path-to-infinity', target: '_blank' },
+            type: "a",
+            content: "Click here",
+            attributes: { href: "/path-to-infinity", target: "_blank" },
           },
         ],
       },
     ],
   },
 ]);
-
-html.renderHTML();
+const result = html.renderHTML();
 ```
 
 The above code will result with the following HTML output:
@@ -57,10 +68,15 @@ The above code will result with the following HTML output:
 <html>
   <head>
     <title>Generated HTML</title>
+    <style>
+      #cool-text {
+        color: red;
+      }
+    </style>
   </head>
-  <body style="padding: 1rem">
+  <body>
     <div>
-      <span class="button">A Button Span Deluxe</span>
+      <div id="cool-text">This is a cool text 😎</div>
       <a href="/path-to-infinity" target="_blank">Click here</a>
     </div>
   </body>

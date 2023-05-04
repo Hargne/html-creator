@@ -91,17 +91,17 @@ class HTMLCreatorDocument {
     element: HTMLCreatorElement,
     search: { id?: string; class?: string; type?: string }
   ) {
-    let targetElementList: HTMLCreatorElement[] = [];
+    if (!search) {
+      return this;
+    }
 
-    // Look up the target element
-    if (search) {
-      if (search.id) {
-        targetElementList = this.findElementById(search.id);
-      } else if (search.class) {
-        targetElementList = this.findElementByClassName(search.class);
-      } else if (search.type) {
-        targetElementList = this.findElementByType(search.type);
-      }
+    let targetElementList: HTMLCreatorElement[] = [];
+    if (search.id) {
+      targetElementList = this.findElementById(search.id);
+    } else if (search.class) {
+      targetElementList = this.findElementByClassName(search.class);
+    } else if (search.type) {
+      targetElementList = this.findElementByType(search.type);
     }
 
     if (targetElementList.length > 0) {

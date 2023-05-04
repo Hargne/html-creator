@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import mkdirp from "mkdirp";
+import { mkdirp } from "mkdirp";
 import { HTMLCreatorElement } from "./index.d";
 
 export const logMessage = (
@@ -72,13 +72,7 @@ export const searchForElement = ({
   }
   // Flatten result array or just return a single object
   const flatResult = result.flat();
-  if (flatResult.length > 0) {
-    if (flatResult.length === 1) {
-      return [flatResult[0]];
-    }
-    return flatResult;
-  }
-  return [];
+  return flatResult.length === 1 ? [flatResult[0]] : flatResult;
 };
 
 export const pushOrConcat = (
