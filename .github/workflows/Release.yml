@@ -28,8 +28,8 @@ jobs:
         run: |
           versionType="${{ github.event.inputs.version }}"
           npm version $versionType
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.email "johan.hargne@gmail.com"
+          git config --global user.name "Hargne"
           git commit -am "Bump version"
           git push origin main --follow-tags
       - name: Publish to NPM
