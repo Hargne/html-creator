@@ -30,6 +30,7 @@ jobs:
           git config user.name "Hargne"
           versionType="${{ github.event.inputs.version }}"
           npm version $versionType
+          git add .
           git commit -am "Bump version"
           git push origin master --follow-tags
       - name: Publish to NPM
