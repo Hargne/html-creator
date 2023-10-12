@@ -26,10 +26,10 @@ jobs:
         run: yarn && yarn build
       - name: Update Package.json version and tag
         run: |
+          git config user.email "johan.hargne@gmail.com"
+          git config user.name "Hargne"
           versionType="${{ github.event.inputs.version }}"
           npm version $versionType
-          git config --global user.email "johan.hargne@gmail.com"
-          git config --global user.name "Hargne"
           git commit -am "Bump version"
           git push origin main --follow-tags
       - name: Publish to NPM
