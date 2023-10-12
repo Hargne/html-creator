@@ -26,13 +26,17 @@ jobs:
         run: yarn && yarn build
       - name: Update Package.json version and tag
         run: |
-          git config user.email "johan.hargne@gmail.com"
-          git config user.name "Hargne"
           versionType="${{ github.event.inputs.version }}"
-          npm version $versionType
-          git add .
-          git commit -am "Bump version"
-          git push origin master --follow-tags
+          new_version=$(npm version "$versionType" --no-git-tag-version)
+          git tag -a "v$new_version" -m "Release version $new_version"
+          git push origin "v$new_version"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git push
       - name: Publish to NPM
         run: yarn npm publish
         env:
