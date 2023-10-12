@@ -1,0 +1,38 @@
+name: Create Release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        type: choice
+        description: Version type
+        options:
+        - patch
+        - minor
+        - major
+jobs:
+  version:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install, test and build
+        run: yarn && yarn build
+      - name: Update Package.json version and tag
+        run: |
+          npm version {{ github.event.inputs.version }}
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Bump version"
+          git push origin main --follow-tags
+      - name: Publish to NPM
+        run: yarn npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  
