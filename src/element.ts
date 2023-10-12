@@ -19,10 +19,6 @@ const VoidElements = [
   "wbr",
 ];
 
-/**
- * Returns a string with the props as HTML attributes
- * @param {Object} props
- */
 export const applyElementAttributes = (
   attributes: HTMLCreatorElement["attributes"]
 ) => {
@@ -39,11 +35,6 @@ export const applyElementAttributes = (
   return "";
 };
 
-/**
- * Parses given content. If the content is an array, recursive parsing will be performed
- * @param {String/Array} content
- * @param {Function} createElementMethod
- */
 export const parseElementContent = (
   content?: HTMLCreatorElement["content"]
 ) => {
@@ -53,12 +44,6 @@ export const parseElementContent = (
   return content || "";
 };
 
-/**
- * Generates a HTML element from the given data
- * @param {String} type - The HTML Tag type
- * @param {Object} applyAttributes - The HTML attributes to be added to the tag
- * @param {String/Array} content - The content of the tag. Can be either a string or an array of elements
- */
 export const generateElement = (element: HTMLCreatorElement): string => {
   if (element.type) {
     if (VoidElements.includes(element.type)) {

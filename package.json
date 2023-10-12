@@ -1,6 +1,6 @@
 {
   "name": "html-creator",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Generate HTML with node.js",
   "main": "dist/index.js",
   "unpkg": "dist/index.js",
@@ -41,6 +41,7 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
+    "@types/jest": "^29.5.5",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "babel-jest": "^29.5.0",
