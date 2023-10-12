@@ -33,10 +33,6 @@ class HTMLCreatorDocument {
       : Prettier.format(html, { parser: "html" });
   }
 
-  /**
-   * Helper function to set the title of the document
-   * @param {String} newTitle
-   */
   setTitle(newTitle: string) {
     // Begin by searching for an existing title tag
     const titleTag = this.findElementByType("title")[0];
@@ -75,18 +71,11 @@ class HTMLCreatorDocument {
     return this;
   }
 
-  /**
-   * Adds element data to the content. This method is chainable.
-   * @param {Object} elementData
-   */
   addElement(element: HTMLCreatorElement | HTMLCreatorElement[]) {
     this.content = pushOrConcat(this.content, element);
     return this;
   }
 
-  /**
-   * Adds element data to the specified target (id, class or type). This method is chainable.
-   */
   addElementToTarget(
     element: HTMLCreatorElement,
     search: { id?: string; class?: string; type?: string }
@@ -133,65 +122,57 @@ class HTMLCreatorDocument {
     return this;
   }
 
-  /**
-   * Adds element data to given class name
-   * @param {String} className
-   * @param {Object} elementData
-   */
-  addElementToClass(className: string, element: HTMLCreatorElement) {
+  addElementToClass(
+    className: string,
+    element: HTMLCreatorElement | HTMLCreatorElement[]
+  ) {
+    if (Array.isArray(element)) {
+      for (const elementItem of element) {
+        this.addElementToTarget(elementItem, { class: className });
+      }
+      return this;
+    }
     return this.addElementToTarget(element, { class: className });
   }
 
-  /**
-   * Adds element data to given ID
-   * @param {String} className
-   * @param {Object} elementData
-   */
-  addElementToId(id: string, element: HTMLCreatorElement) {
+  addElementToId(
+    id: string,
+    element: HTMLCreatorElement | HTMLCreatorElement[]
+  ) {
+    if (Array.isArray(element)) {
+      for (const elementItem of element) {
+        this.addElementToTarget(elementItem, { id });
+      }
+      return this;
+    }
     return this.addElementToTarget(element, { id });
   }
 
-  /**
-   * Adds element data to given type
-   * @param {String} className
-   * @param {Object} elementData
-   */
   addElementToType(
     type: HTMLCreatorElement["type"],
-    element: HTMLCreatorElement
+    element: HTMLCreatorElement | HTMLCreatorElement[]
   ) {
+    if (Array.isArray(element)) {
+      for (const elementItem of element) {
+        this.addElementToTarget(elementItem, { type });
+      }
+      return this;
+    }
     return this.addElementToTarget(element, { type });
   }
 
-  /**
-   * Finds and returns an element by type.
-   * Returns null if not found.
-   * @param {String} needle
-   */
   findElementByType(needle: HTMLCreatorElement["type"]) {
     return searchForElement({ stack: this.content, type: needle });
   }
-  /**
-   * Finds and returns an element by ID.
-   * Returns null if not found.
-   * @param {String} needle
-   */
+
   findElementById(needle: string) {
     return searchForElement({ stack: this.content, id: needle });
   }
-  /**
-   * Finds and returns an element by class.
-   * Returns null if not found.
-   * @param {String} needle
-   */
+
   findElementByClassName(needle: string) {
     return searchForElement({ stack: this.content, className: needle });
   }
 
-  /**
-   * Helper function that sets a simple boilerplate content
-   * @param {Array} content
-   */
   withBoilerplate() {
     this.content = [
       {

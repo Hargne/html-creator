@@ -329,7 +329,7 @@ describe("Document", () => {
   });
 
   describe("addElementToClass", () => {
-    it("should add element data to all elements of given Class", () => {
+    it("should add element data to all elements of given class", () => {
       const document = new Document([
         {
           type: "div",
@@ -365,6 +365,57 @@ describe("Document", () => {
         },
       ]);
     });
+
+    it("should add an array of element data to all elements of given class", () => {
+      const document = new Document([
+        {
+          type: "div",
+          attributes: { class: "aClass" },
+          content: [{ type: "div", content: "hello there" }],
+        },
+        {
+          type: "div",
+          attributes: { class: "aClass" },
+          content: [{ type: "div", content: "hello there 2" }],
+        },
+      ]);
+      document.addElementToClass("aClass", [
+        {
+          type: "span",
+          content: "in here",
+        },
+        {
+          type: "span",
+          content: "another one",
+        },
+      ]);
+      expect(document.content).toEqual([
+        {
+          type: "div",
+          attributes: { class: "aClass" },
+          content: [
+            { type: "div", content: "hello there" },
+            { type: "span", content: "in here" },
+            {
+              type: "span",
+              content: "another one",
+            },
+          ],
+        },
+        {
+          type: "div",
+          attributes: { class: "aClass" },
+          content: [
+            { type: "div", content: "hello there 2" },
+            { type: "span", content: "in here" },
+            {
+              type: "span",
+              content: "another one",
+            },
+          ],
+        },
+      ]);
+    });
   });
 
   describe("addElementToId", () => {
@@ -383,6 +434,33 @@ describe("Document", () => {
           content: [
             { content: "hello there" },
             { type: "span", content: "in here" },
+          ],
+        },
+      ]);
+    });
+
+    it("should add an array of element data to a specified element ID", () => {
+      const document = new Document([
+        { type: "div", attributes: { id: "anId" }, content: "hello there" },
+      ]);
+      document.addElementToId("anId", [
+        {
+          type: "span",
+          content: "in here",
+        },
+        {
+          type: "span",
+          content: "another one",
+        },
+      ]);
+      expect(document.content).toEqual([
+        {
+          type: "div",
+          attributes: { id: "anId" },
+          content: [
+            { content: "hello there" },
+            { type: "span", content: "in here" },
+            { type: "span", content: "another one" },
           ],
         },
       ]);
@@ -409,6 +487,35 @@ describe("Document", () => {
           content: [
             { type: "span", content: "hello there 2" },
             { type: "span", content: "in here" },
+          ],
+        },
+      ]);
+    });
+
+    it("should add the given array of element data to all elements of given HTML type", () => {
+      const document = new Document([
+        { type: "div", content: [{ type: "span", content: "hello there" }] },
+        { type: "div", content: [{ type: "span", content: "hello there 2" }] },
+      ]);
+      document.addElementToType("div", [
+        { type: "span", content: "in here" },
+        { type: "span", content: "another one" },
+      ]);
+      expect(document.content).toEqual([
+        {
+          type: "div",
+          content: [
+            { type: "span", content: "hello there" },
+            { type: "span", content: "in here" },
+            { type: "span", content: "another one" },
+          ],
+        },
+        {
+          type: "div",
+          content: [
+            { type: "span", content: "hello there 2" },
+            { type: "span", content: "in here" },
+            { type: "span", content: "another one" },
           ],
         },
       ]);
