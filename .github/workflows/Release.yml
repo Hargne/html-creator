@@ -11,7 +11,7 @@ on:
         - minor
         - major
 jobs:
-  version:
+  release:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,8 @@ jobs:
         run: yarn && yarn build
       - name: Update Package.json version and tag
         run: |
-          npm version {{ github.event.inputs.version }}
+          versionType="${{ github.event.inputs.version }}"
+          npm version $versionType
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Bump version"
