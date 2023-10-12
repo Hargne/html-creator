@@ -31,7 +31,7 @@ jobs:
           versionType="${{ github.event.inputs.version }}"
           npm version $versionType
           git commit -am "Bump version"
-          git push origin main --follow-tags
+          git push origin master --follow-tags
       - name: Publish to NPM
         run: yarn npm publish
         env:
