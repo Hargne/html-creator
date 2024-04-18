@@ -26,9 +26,9 @@ export const applyElementAttributes = (
     return Object.keys(attributes)
       .map(
         (key) =>
-          ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${
+          attributes[key] !== undefined ? ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${
             attributes[key]
-          }"`
+          }"` : ''
       )
       .join("");
   }
