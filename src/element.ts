@@ -24,11 +24,14 @@ export const applyElementAttributes = (
 ) => {
   if (attributes) {
     return Object.keys(attributes)
+      .filter(
+        (key) => attributes[key] !== undefined && attributes[key] !== null
+      )
       .map(
         (key) =>
-          attributes[key] !== undefined ? ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${
+          ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${
             attributes[key]
-          }"` : ''
+          }"`
       )
       .join("");
   }

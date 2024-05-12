@@ -42,5 +42,13 @@ describe("Element", () => {
       });
       expect(attributeString).toEqual(' class="new"');
     });
+
+    it("should not include keys when their value is null in attributes", () => {
+       const attributeString = Element.applyElementAttributes({
+          class: "new",
+          dataTest: null,
+       });
+       expect(attributeString).toEqual(' class="new"');
+    });
   });
 });
