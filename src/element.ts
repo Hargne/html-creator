@@ -24,6 +24,9 @@ export const applyElementAttributes = (
 ) => {
   if (attributes) {
     return Object.keys(attributes)
+      .filter(
+        (key) => attributes[key] !== undefined && attributes[key] !== null
+      )
       .map(
         (key) =>
           ` ${key.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`)}="${
